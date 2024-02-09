@@ -1,2 +1,24 @@
 // RESETS - UTILITY CLASSES
 
+@use './partials/mixins' as *;
+
+* {
+    @include css-reset;
+}
+
+img {
+    @include img-reset;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.d-flex {
+    display: flex;
+}

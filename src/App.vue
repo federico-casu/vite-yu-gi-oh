@@ -53,6 +53,7 @@ import { store } from './store';
   @use './assets/styles/partials/mixins.scss' as *;
   @use './assets/styles/partials/variables.scss' as *;
 
+  
 
 
 </style>
