@@ -2,7 +2,7 @@
 <script>
     // Js componente
     export default {
-        name: 'NewComp',
+        name: 'AppHeader',
         data() {
             return {
                 
