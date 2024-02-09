@@ -20,40 +20,45 @@
 <script>
 
 import AppHeader from './components/header/AppHeader.vue';
+import AppMain from './components/main/AppMain.vue';
+import axios from 'axios';
 
 // importo con il destructuring l'oggetto reattivo store dal file store.js
 import { store } from './store';
 
-  export default {
-    components: {
-      AppHeader
-    },
-    data() {
-      return {
-        // dichiaro store nei data per poterlo utilizzare
-        store
-      }
-    },
-    methods: {
-
+export default {
+  components: {
+    AppHeader,
+    AppMain
+  },
+  data() {
+    return {
+      // dichiaro store nei data per poterlo utilizzare
+      store
     }
+  },
+  methods: {
+    getCards() {
+      axios.get(store.apiUrl).then(res => {
+        store.cards = res.data.data;
+        // console.log(res.data.data)
+      })
+    }
+  },
+  mounted() {
+    this.getCards();
   }
+}
 
 </script>
 
 <template>
-
   <AppHeader />
-
+  <AppMain />
 </template>
 
 <style lang="scss">
-
-  @use './assets/styles/general.scss' as *;
-  @use './assets/styles/partials/mixins.scss' as *;
-  @use './assets/styles/partials/variables.scss' as *;
-
-  
-
-
+@use './assets/styles/general.scss' as *;
+@use './assets/styles/partials/mixins.scss' as *;
+@use './assets/styles/partials/variables.scss' as *;
 </style>
