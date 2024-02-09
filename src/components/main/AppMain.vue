@@ -3,15 +3,22 @@
 
 <script>
 // Js componente
+
+import { store } from '../../store';
+import Card from './Card.vue';
+
 export default {
     name: 'AppMain',
+    components: {
+        Card
+    },
     data() {
         return {
-
+            store
         }
     },
     methods: {
-
+        
     }
 }
 </script>
@@ -20,17 +27,15 @@ export default {
 <template>
     <!-- html componente -->
 
-    <div class="d-flex">
+    <main class="d-flex">
         <div class="container d-flex">
-            <div v-for="element in 5" class="card">
-                <figure>
-                    <img src="" alt="">
-                </figure>
-                <h3>Nome carta</h3>
-                <span>Tipo</span>
-            </div>
+            <Card 
+            v-for="(card, index) in store.cards" :key="index" 
+            :propsImg="card.card_images[0].image_url_small"
+            :propsName="card.name"
+            :propsRace="card.race"/>
         </div>
-    </div>
+    </main>
 </template>
 
 
@@ -39,9 +44,10 @@ export default {
 
 @use '../../assets/styles/partials/variables' as *;
 
-div {
+main {
     align-items: center;
     background-color: $bg-orange;
+    padding: 50px 0;
     // border: 1px solid blue;
 
     .container {
@@ -52,11 +58,6 @@ div {
 
         flex-wrap: wrap;
         gap: 20px;
-
-        .card {
-            flex-basis: calc(100% / 5 - (80px / 5));
-            border: 1px dashed black;
-        }
     }
 
 }
