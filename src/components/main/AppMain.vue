@@ -76,7 +76,7 @@ main {
 
     #card-container {
         background-color: white;
-        border: 1px solid red;
+        // border: 1px solid red;
         height: 90%;
         padding: 30px 20px;
 

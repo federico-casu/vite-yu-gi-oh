@@ -45,7 +45,7 @@
 
     .card {
         flex-basis: calc(100% / 5 - (80px / 5));
-        border: 1px dashed black;
+        // border: 1px dashed black;
         min-height: 280px;
         background-color: $bg-orange;
 
