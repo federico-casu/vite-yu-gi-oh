@@ -42,12 +42,18 @@ export default {
   methods: {
     
     getCardTypes() {
-      axios.get(store.apiUrlAll).then(res => {
-        res.data.data.forEach(element => {
-          if (!store.cardTypes.includes(element.type)) {
-            store.cardTypes.push(element.type);
-          }
-        });
+      // axios.get(store.apiUrlAll).then(res => {
+      //   res.data.data.forEach(element => {
+      //     if (!store.cardTypes.includes(element.type)) {
+      //       store.cardTypes.push(element.type);
+      //     }
+      //   });
+      // })
+
+      axios.get(store.apiUrlArchetypes).then( res => {
+        store.cardTypes = res.data;
+
+        // console.log(res.data)
       })
     }
   },
@@ -60,8 +66,6 @@ export default {
 
 <template>
   <AppHeader />
-  <!-- NOTE capire dove posizionare AppLoader e realizzarlo -->
-  <!-- <AppLoader v-if="store.cards.length === 0" /> -->
   <AppMain />
 </template>
 

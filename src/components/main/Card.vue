@@ -13,7 +13,7 @@
         props: {
             propsImg: String,
             propsName: String,
-            propsRace: String
+            propsArchetype: String
         },
         methods: {
             
@@ -31,7 +31,7 @@
         </figure>
         <div class="info d-flex">
             <h4>{{ propsName }}</h4>
-            <span>{{ propsRace }}</span>
+            <span>{{ propsArchetype }}</span>
         </div>
     </div>
     

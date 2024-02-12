@@ -6,12 +6,14 @@
 
 import { store } from '../../store';
 import Card from './Card.vue';
-import axios from 'axios'
+import axios from 'axios';
+import AppLoader from '../AppLoader.vue';
 
 export default {
     name: 'AppMain',
     components: {
-        Card
+        Card,
+        AppLoader
     },
     data() {
         return {
@@ -19,21 +21,32 @@ export default {
         }
     },
     methods: {
-        getCards(type) {
-            console.log(`${store.apiUrlTypes}${type}`)
+        getCards(archetype) {
+            // console.log(`${store.apiUrl}?archetype=${archetype}`)
 
-            axios.get(`${store.apiUrlTypes}${type}`).then(res => {
-                store.cards = res.data.data;
-            })
+            store.cards = []
+
+            if (!store.cards) {
+                store.loading = true;
+            } else {
+                store.loading = false;
+            }
+
+            setTimeout( () => {
+                axios.get(`${store.apiUrl}?archetype=${archetype}`).then(res => {
+                    store.cards = res.data.data;
+                })
+            }, 2000);
+
         },
-        convertCardType(type) {
+        convertCardType(archetype) {
             // console.log(type.replace(/ /g, '%20').toLowerCase())
-            return type.replace(/ /g, '%20').toLowerCase();
+            return archetype.replace(/ /g, '%20').toLowerCase();
         }
     },
     mounted() {
         // this.getCards(store.apiUrl);
-        this.getCards(this.convertCardType('Trap Card'))
+        this.getCards(this.convertCardType('-Eyes Dragon'))
     }
 }
 </script>
@@ -47,22 +60,25 @@ export default {
         <div class="container">
             <select v-model="store.currentType" @change="getCards(convertCardType(store.currentType))" name="filter" id="filter">
                 <option 
-                v-for="(type, index) in store.cardTypes" 
+                v-for="(archetype, index) in store.cardTypes" 
                 :key="index"
-                :value="type"
-                >{{ type }}</option>
+                :value="archetype.archetype_name"
+                >{{ archetype.archetype_name }}</option>
             </select>
         </div>
 
+        
+
         <div id="card-container" class="container d-flex">
 
-            <h3>Found {{ store.cards.length }} cards</h3>
+            <AppLoader v-if="store.cards.length === 0" />
+            <h3 v-else>Found {{ store.cards.length }} cards</h3>
 
             <Card 
             v-for="(card, index) in store.cards" :key="index" 
             :propsImg="card.card_images[0].image_url_small"
             :propsName="card.name"
-            :propsRace="card.race"/>
+            :propsArchetype="card.archetype"/>
         </div>
     </main>
 </template>
