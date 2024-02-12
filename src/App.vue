@@ -21,6 +21,7 @@
 
 import AppHeader from './components/header/AppHeader.vue';
 import AppMain from './components/main/AppMain.vue';
+import AppLoader from './components/AppLoader.vue';
 import axios from 'axios';
 
 // importo con il destructuring l'oggetto reattivo store dal file store.js
@@ -29,7 +30,8 @@ import { store } from './store';
 export default {
   components: {
     AppHeader,
-    AppMain
+    AppMain,
+    AppLoader
   },
   data() {
     return {
@@ -38,15 +40,19 @@ export default {
     }
   },
   methods: {
-    getCards() {
-      axios.get(store.apiUrl).then(res => {
-        store.cards = res.data.data;
-        // console.log(res.data.data)
+    
+    getCardTypes() {
+      axios.get(store.apiUrlAll).then(res => {
+        res.data.data.forEach(element => {
+          if (!store.cardTypes.includes(element.type)) {
+            store.cardTypes.push(element.type);
+          }
+        });
       })
     }
   },
   mounted() {
-    this.getCards();
+    this.getCardTypes();
   }
 }
 
@@ -54,6 +60,8 @@ export default {
 
 <template>
   <AppHeader />
+  <!-- NOTE capire dove posizionare AppLoader e realizzarlo -->
+  <!-- <AppLoader v-if="store.cards.length === 0" /> -->
   <AppMain />
 </template>
 

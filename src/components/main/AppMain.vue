@@ -6,6 +6,7 @@
 
 import { store } from '../../store';
 import Card from './Card.vue';
+import axios from 'axios'
 
 export default {
     name: 'AppMain',
@@ -18,7 +19,21 @@ export default {
         }
     },
     methods: {
-        
+        getCards(type) {
+            console.log(`${store.apiUrlTypes}${type}`)
+
+            axios.get(`${store.apiUrlTypes}${type}`).then(res => {
+                store.cards = res.data.data;
+            })
+        },
+        convertCardType(type) {
+            // console.log(type.replace(/ /g, '%20').toLowerCase())
+            return type.replace(/ /g, '%20').toLowerCase();
+        }
+    },
+    mounted() {
+        // this.getCards(store.apiUrl);
+        this.getCards(this.convertCardType('Trap Card'))
     }
 }
 </script>
@@ -30,8 +45,12 @@ export default {
     <main class="d-flex">
 
         <div class="container">
-            <select name="filter" id="filter">
-                <option value="">Alien</option>
+            <select v-model="store.currentType" @change="getCards(convertCardType(store.currentType))" name="filter" id="filter">
+                <option 
+                v-for="(type, index) in store.cardTypes" 
+                :key="index"
+                :value="type"
+                >{{ type }}</option>
             </select>
         </div>
 

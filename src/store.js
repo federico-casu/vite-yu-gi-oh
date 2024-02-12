@@ -6,8 +6,12 @@ import { reactive } from "vue";
 export const store = reactive({
     // apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?cardset=metal%20raiders&attribute=dark',
     // apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?cardset=spell%20ruler',
-    // apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?cardset=duel%20devastator',
-    apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?cardset=raging%20tempest',
+    apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?cardset=duel%20devastator',
+    apiUrlAll: 'https://db.ygoprodeck.com/api/v7/cardinfo.php',
     cards: [],
-    loading: false
+    loading: false,
+    cardTypes: [],
+    currentType: '',
+    // apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?type=trap%20card'
+    apiUrlTypes: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?type='
 })

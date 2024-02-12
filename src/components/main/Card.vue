@@ -45,9 +45,16 @@
 
     .card {
         flex-basis: calc(100% / 5 - (80px / 5));
+        max-width: calc(100% / 5 - (80px / 5));
         // border: 1px dashed black;
         min-height: 280px;
         background-color: $bg-orange;
+
+        figure {
+            img {
+                width: 100%;
+            }
+        }
 
         div.info {
             flex-direction: column;
